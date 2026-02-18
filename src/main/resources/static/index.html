@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="number" id="a">
+    <input type="number" id="b">
+    <button onclick="calculate('add')">+</button>
+    <button onclick="calculate('minus')">-</button>
+    <button onclick="calculate('multiplication')">*</button>
+    <button onclick="calculate('division')">/</button>
+
+    <span id="result"></span>
+    
+</body>
+<script>
+    function calculate (operation){
+       let a= document.getElementById("a").value;
+        let b =document.getElementById("b").value;
+
+       fetch(`http://localhost:8080/${operation}?a=${a}&b=${b}`)
+        .then(response=>response.text())
+        .then(data =>{
+            document.getElementById("result").innerHTML =data;
+        }).catch(error =>{
+            document.getElementById("result").innerHTML =error;
+        }
+        )
+       }
+
+
+    
+
+</script>
+</html>
