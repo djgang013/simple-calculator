@@ -4,23 +4,132 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+    
+* {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f3f4f6; /* Modern light gray background */
+        }
+
+        /* 2. Main Calculator Card */
+        .calculator {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* 3. Input Fields */
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="number"]:focus {
+            border-color: #3b82f6; /* Blue highlight on click */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        /* 4. Button Grid */
+        .button-group {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.375rem;
+            padding: 0.75rem;
+            background-color: #f9fafb;
+            cursor: pointer;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #374151;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background-color: #e5e7eb;
+            color: #111827;
+        }
+
+        button:active {
+            background-color: #d1d5db;
+            transform: translateY(1px); /* Slight click-down effect */
+        }
+
+        /* 5. Result Screen */
+        .result-container {
+            background-color: #1f2937; /* Dark screen */
+            color: #10b981; /* Digital green text */
+            padding: 1rem;
+            border-radius: 0.375rem;
+            text-align: right;
+            min-height: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            font-size: 1.5rem;
+            font-family: monospace;
+            overflow: hidden;
+            word-wrap: break-word;
+        }
+    </style>
 </head>
 
 <body>
-    <input type="number" id="a">
-    <input type="number" id="b">
-    <button onclick="calculate('add')">+</button>
+   
+    <div class="calculator">
+        <div class="input-group">
+<input type="number" id="a" placeholder="num1">
+    <input type="number" id="b" placeholder="num2">
+    
+        </div>
+ <div class="button-group"><button onclick="calculate('add')">+</button>
     <button onclick="calculate('minus')">-</button>
     <button onclick="calculate('multiplication')">*</button>
-    <button onclick="calculate('division')">/</button>
+    <button onclick="calculate('division')">/</button></div>
+    
+  <div class="result-container"><span id="result">0</span></div>
+    
+    </div>
 
-    <span id="result"></span>
     
 </body>
 <script>
     function calculate (operation){
        let a= document.getElementById("a").value;
         let b =document.getElementById("b").value;
+        let c ="type a number"
+        if(a =="" || b==""){
+           alert("type a number")
+        }
 
        fetch(`http://localhost:8080/${operation}?a=${a}&b=${b}`)
         .then(response=>response.text())
